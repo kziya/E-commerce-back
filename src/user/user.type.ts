@@ -1,15 +1,17 @@
-export type User = {
-    id: number,
+type BaseTable = {
+    id: number
+    updatedAt: Date
+    createdAt: Date
+}
+
+export type User  = {
     email: string,
     password: string,
     firstName?: string,
     lastName?: string
     status: USER_STATUS
     orders?: Order[],
-
-    updatedAt: Date
-    createdAt: Date
-}
+} & BaseTable
 
 export enum USER_STATUS{
     ACTIVE = 'ACTIVE',
@@ -17,37 +19,25 @@ export enum USER_STATUS{
 }
 
 type Category = {
-    id: number,
     name: string
-
-    updatedAt: Date
-    createdAt: Date
-}
+} & BaseTable
 
 type Product = {
-    id: number
     name: string
     description?: string
     price: number
     quantity: number
     categoryId: number
     category?: Category,
-
-    updatedAt: Date
-    createdAt: Date
-}
+} & BaseTable
 
 type Order = {
-    id: number
     status: ORDER_STATUS,
     price: number
     user: User,
     userId: number
     products?: Order_Product[],
-
-    updatedAt: Date
-    createdAt: Date
-}
+} & BaseTable
 
 enum ORDER_STATUS{
     OPENED = 'OPENED',
@@ -58,13 +48,9 @@ enum ORDER_STATUS{
 
 
 type Order_Product = {
-    id: number
     quantity: number
     product?: Product,
     productId: number
     order?: Order
     orderId: number
-
-    updatedAt: Date
-    createdAt: Date
-}
+} & BaseTable
