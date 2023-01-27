@@ -1,6 +1,6 @@
-import {Module, ValidationPipe} from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import {APP_GUARD, APP_PIPE} from '@nestjs/core';
+import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
@@ -27,7 +27,7 @@ import { PrismaModule } from './prisma/prisma.module';
     {
       provide: APP_PIPE,
       useClass: ValidationPipe,
-    }
+    },
   ],
 })
 export class AppModule {}

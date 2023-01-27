@@ -1,3 +1,11 @@
-import {IsEmail} from "class-validator";
+import {IsEmail, Length} from "class-validator";
 
-export class LoginDto{}
+import ErrorMessagesEnum from "../enums/error-messages.enum";
+
+export class LoginDto {
+    @IsEmail({},{ message: ErrorMessagesEnum.emailNotValid })
+    email: string;
+
+    @Length(8,20,{ message: ErrorMessagesEnum.passwordLength })
+    password: string;
+}
