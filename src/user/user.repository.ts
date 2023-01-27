@@ -4,16 +4,7 @@ import {PrismaClient, user} from "@prisma/client";
 @Injectable()
 export class UserRepository {
     constructor(private readonly prismaClient: PrismaClient) {}
-    async findOne(){
-        const a = await this.prismaClient.user.findFirst({
-            where: {
-
-            },
-            include: {
-                orders: true
-            }
-        })
-
-        return a;
+    async findOneById(id: number){
+        return  this.prismaClient.user.findFirst({ where: { id } });
     }
 }
