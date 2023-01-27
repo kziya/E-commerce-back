@@ -22,7 +22,6 @@ import { PrismaModule } from '../prisma/prisma.module';
       inject: [ConfigService],
       useFactory: AccessTokenConfig,
     }),
-    PrismaModule,
   ],
   controllers: [AuthController],
   providers: [JwtStrategy, AuthService],
