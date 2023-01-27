@@ -7,6 +7,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import {AccessTokenConfig} from "../configs/jwt.config";
 import { JwtStrategy } from "./strategies/jwt.strategy";
+import {PrismaModule} from "../prisma/prisma.module";
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { JwtStrategy } from "./strategies/jwt.strategy";
         imports: [ConfigModule],
         inject: [ConfigService],
         useFactory: AccessTokenConfig,
-        })
+        }),
+      PrismaModule
     ],
   controllers: [AuthController],
   providers: [JwtStrategy, AuthService]
