@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
-
+import {UserRepository} from "./user.repository";
 @Injectable()
 export class UserService {
-    async findOne(){
-        return {};
-    }
+    constructor(private readonly userRepository: UserRepository) {}
 }
