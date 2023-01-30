@@ -1,11 +1,16 @@
 import { AuthGuard } from '@nestjs/passport';
-import { ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import {
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
 
+@Injectable()
 export class JwtGuard extends AuthGuard('jwt') {
-  constructor(private reflector: Reflector) {
+  constructor(private readonly reflector: Reflector) {
     super();
   }
 
@@ -13,10 +18,12 @@ export class JwtGuard extends AuthGuard('jwt') {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
-      context.getHandler,
-      context.getClass,
+      context.getHandler(),
+      context.getClass(),
     ]);
-    if (isPublic) return true;
+    if (isPublic) {
+      return true;
+    }
     return super.canActivate(context);
   }
 
