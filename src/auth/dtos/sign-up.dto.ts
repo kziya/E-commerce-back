@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, Length } from 'class-validator';
+import { IsEmail, Length } from 'class-validator';
 import ErrorMessagesEnum from '../enums/error-messages.enum';
 
 export class SignUpDto {
