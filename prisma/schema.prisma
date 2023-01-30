@@ -17,10 +17,11 @@ model user {
   firstName String?
   lastName  String?
   status    user_status @default(NOT_ACTIVE)
+  hash      String      @default(uuid())
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
-  orders     order[]
+  orders    order[]
 }
 
 enum user_status {
@@ -43,7 +44,7 @@ model product {
   description   String?
   price         Float
   quantity      Int
-  category    category        @relation(fields: [categoryId], references: [id])
+  category      category        @relation(fields: [categoryId], references: [id])
   categoryId    Int
   order_product order_product[]
 
@@ -75,7 +76,7 @@ model order_product {
   quantity  Int
   product   product @relation(fields: [productId], references: [id])
   productId Int
-  order     order  @relation(fields: [orderId], references: [id])
+  order     order   @relation(fields: [orderId], references: [id])
   orderId   Int
 
   updatedAt DateTime @updatedAt
