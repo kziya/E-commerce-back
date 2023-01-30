@@ -4,19 +4,19 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { UserRepository } from '../../../../user/user.repository';
 
-@ValidatorConstraint({ name: 'UserExists', async: true })
+import { UserRepository } from '../../user/user.repository';
+
+@ValidatorConstraint({ name: 'UserNotExists', async: true })
 @Injectable()
-export class UserExistsValidator implements ValidatorConstraintInterface {
+export class UserNotExistsValidator implements ValidatorConstraintInterface {
   constructor(private usersRepository: UserRepository) {}
 
   async validate(email: string) {
     try {
       const user = await this.usersRepository.findOneByEmail(email);
-      if (!user) return false;
+      if (user) return false;
     } catch (e) {
-      console.log(e);
       return false;
     }
 
@@ -24,6 +24,6 @@ export class UserExistsValidator implements ValidatorConstraintInterface {
   }
 
   defaultMessage(args: ValidationArguments) {
-    return `User doesn't exist !`;
+    return `User is already exists !`;
   }
 }

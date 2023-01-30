@@ -9,8 +9,8 @@ import { AccessTokenConfig } from '../configs/jwt.config';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { BcryptModule } from '../bcrypt/bcrypt.module';
 import { UserModule } from '../user/user.module';
-import { UserNotExistsValidator } from './decorators/validation/validators/user-not-exists.validator';
-import { UserExistsValidator } from './decorators/validation/validators/user-exists.validator';
+import { UserNotExistsValidator } from './validators/user-not-exists.validator';
+import { UserExistsValidator } from './validators/user-exists.validator';
 
 @Module({
   imports: [

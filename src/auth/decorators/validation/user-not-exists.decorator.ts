@@ -1,5 +1,5 @@
 import { registerDecorator, ValidationOptions } from 'class-validator';
-import { UserNotExistsValidator } from './validators/user-not-exists.validator';
+import { UserNotExistsValidator } from '../../validators/user-not-exists.validator';
 
 export function UserNotExists(validationOptions?: ValidationOptions) {
   return function (object: any, propertyName: string) {
