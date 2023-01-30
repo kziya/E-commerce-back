@@ -9,6 +9,7 @@ import envConfig from './configs/env.config';
 import { JwtGuard } from './auth/guards/jwt.guard';
 import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { BcryptModule } from './bcrypt/bcrypt.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { PrismaModule } from './prisma/prisma.module';
     AuthModule,
     UserModule,
     PrismaModule,
+    BcryptModule,
   ],
   controllers: [AppController],
   providers: [
