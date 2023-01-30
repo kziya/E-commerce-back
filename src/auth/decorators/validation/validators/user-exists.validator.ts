@@ -14,7 +14,6 @@ export class UserExistsValidator implements ValidatorConstraintInterface {
   async validate(email: string) {
     try {
       const user = await this.usersRepository.findOneByEmail(email);
-      console.log(user);
       if (!user) return false;
     } catch (e) {
       console.log(e);
