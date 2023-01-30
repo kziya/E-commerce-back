@@ -8,7 +8,9 @@ import { AuthService } from './auth.service';
 import { AccessTokenConfig } from '../configs/jwt.config';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { BcryptModule } from '../bcrypt/bcrypt.module';
-import { PrismaModule } from '../prisma/prisma.module';
+import { UserModule } from '../user/user.module';
+import { UserNotExistsValidator } from './decorators/validation/validators/user-not-exists.validator';
+import { UserExistsValidator } from './decorators/validation/validators/user-exists.validator';
 
 @Module({
   imports: [
@@ -24,9 +26,14 @@ import { PrismaModule } from '../prisma/prisma.module';
       useFactory: AccessTokenConfig,
     }),
     BcryptModule,
-    PrismaModule,
+    UserModule,
   ],
   controllers: [AuthController],
-  providers: [JwtStrategy, AuthService],
+  providers: [
+    JwtStrategy,
+    AuthService,
+    UserNotExistsValidator,
+    UserExistsValidator,
+  ],
 })
 export class AuthModule {}
