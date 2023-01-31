@@ -30,9 +30,8 @@ export class PasswordCheckValidator implements ValidatorConstraintInterface {
       const user = await this.usersRepository.findOneByEmail(
         validationArguments.object?.email ?? '',
       );
-      console.log(user, validationArguments.object);
       if (!user) return false;
-      return user.password === password;
+      return this.bcryptService.verify(password, user.password);
     } catch (e) {
       console.log(e);
       return false;
