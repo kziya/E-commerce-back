@@ -1,11 +1,9 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { user } from '@prisma/client';
 
 import { AuthService } from './auth.service';
 import { LoginDto } from './dtos/login.dto';
 import { SignUpDto } from './dtos/sign-up.dto';
 import { Public } from './decorators/public.decorator';
-import { BcryptService } from '../bcrypt/bcrypt.service';
 import { TokensResponse, UserPayloadResponse } from './auth.types';
 
 @Controller('auth')
