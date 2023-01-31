@@ -4,7 +4,6 @@ import { JwtService } from '@nestjs/jwt';
 import { user } from '@prisma/client';
 import { RefreshTokenSignConfig } from '../configs/jwt.config';
 import { UserRepository } from '../user/user.repository';
-import { LoginDto } from './dtos/login.dto';
 
 @Injectable()
 export class AuthService {
