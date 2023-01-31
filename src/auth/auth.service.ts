@@ -4,6 +4,9 @@ import { JwtService } from '@nestjs/jwt';
 import { user } from '@prisma/client';
 import { RefreshTokenSignConfig } from '../configs/jwt.config';
 import { UserRepository } from '../user/user.repository';
+import { SignUpDto } from './dtos/sign-up.dto';
+import { IUserCreate } from '../user/user.types';
+import { BcryptService } from '../bcrypt/bcrypt.service';
 
 @Injectable()
 export class AuthService {
@@ -11,6 +14,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
     private readonly userRepository: UserRepository,
+    private readonly bcryptService: BcryptService,
   ) {}
   async getUserSignPayload(
     email: string,
@@ -31,5 +35,20 @@ export class AuthService {
         RefreshTokenSignConfig(this.configService),
       ),
     };
+  }
+
+  async addUser(
+    userCreateDto: IUserCreate,
+  ): Promise<Omit<user, 'password' | 'hash'>> {
+    const passwordHashed = await this.bcryptService.hash(
+      userCreateDto.password,
+    );
+
+    const user = await this.userRepository.create({
+      ...userCreateDto,
+      password: passwordHashed,
+    });
+    const { password, hash, ...restUser } = user;
+    return restUser;
   }
 }

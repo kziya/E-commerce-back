@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { LoginDto } from './dtos/login.dto';
 import { SignUpDto } from './dtos/sign-up.dto';
 import { Public } from './decorators/public.decorator';
+import { BcryptService } from '../bcrypt/bcrypt.service';
 
 @Controller('auth')
 export class AuthController {
@@ -30,7 +31,13 @@ export class AuthController {
 
   @Public()
   @Post('sign-up')
-  signUp(@Body() signUpDto: SignUpDto) {
-    return signUpDto;
+  async signUp(@Body() signUpDto: SignUpDto) {
+    const { confirmPassword, ...restDto } = signUpDto;
+    const userPayload = await this.authService.addUser(restDto);
+    const tokens = this.authService.generateTokens(userPayload);
+    return {
+      user: userPayload,
+      ...tokens,
+    };
   }
 }
