@@ -11,6 +11,7 @@ import { BcryptModule } from '../bcrypt/bcrypt.module';
 import { UserModule } from '../user/user.module';
 import { UserNotExistsValidator } from './validators/user-not-exists.validator';
 import { UserExistsValidator } from './validators/user-exists.validator';
+import { PasswordCheckValidator } from './validators/password-check.validator';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { UserExistsValidator } from './validators/user-exists.validator';
     AuthService,
     UserNotExistsValidator,
     UserExistsValidator,
+    PasswordCheckValidator,
   ],
 })
 export class AuthModule {}

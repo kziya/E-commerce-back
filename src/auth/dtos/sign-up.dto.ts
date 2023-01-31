@@ -1,4 +1,4 @@
-import { IsEmail, Length } from 'class-validator';
+import { IsEmail, Length, Matches } from 'class-validator';
 
 import ErrorMessagesEnum from '../enums/error-messages.enum';
 import { UserNotExists } from '../decorators/validation/user-not-exists.decorator';
