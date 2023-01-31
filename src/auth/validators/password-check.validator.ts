@@ -26,7 +26,6 @@ export class PasswordCheckValidator implements ValidatorConstraintInterface {
     },
   ): Promise<boolean> {
     try {
-      console.log(validationArguments.object.email);
       const user = await this.usersRepository.findOneByEmail(
         validationArguments.object?.email ?? '',
       );

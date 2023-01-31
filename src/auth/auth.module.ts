@@ -5,7 +5,7 @@ import { PassportModule } from '@nestjs/passport';
 
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { AccessTokenConfig } from '../configs/jwt.config';
+import { AccessTokenModuleConfig } from '../configs/jwt.config';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { BcryptModule } from '../bcrypt/bcrypt.module';
 import { UserModule } from '../user/user.module';
@@ -24,7 +24,7 @@ import { PasswordCheckValidator } from './validators/password-check.validator';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: AccessTokenConfig,
+      useFactory: AccessTokenModuleConfig,
     }),
     BcryptModule,
     UserModule,
