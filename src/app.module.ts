@@ -10,6 +10,7 @@ import { JwtGuard } from './auth/guards/jwt.guard';
 import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { BcryptModule } from './bcrypt/bcrypt.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { BcryptModule } from './bcrypt/bcrypt.module';
     UserModule,
     PrismaModule,
     BcryptModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [
