@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Headers,
+  Post,
+  Req,
+  UnauthorizedException,
+} from '@nestjs/common';
 
 import { AuthService } from './auth.service';
 import { LoginDto } from './dtos/login.dto';
@@ -40,11 +48,23 @@ export class AuthController {
     };
   }
 
+  @Public()
   @Get('refresh-token')
-  refreshToken(): TokensResponse {
+  async refreshToken(
+    @Headers('refreshToken') refreshToken: string,
+  ): Promise<TokensResponse & UserPayloadResponse> {
+    const validationRes = this.authService.validateRefreshToken(refreshToken);
+
+    if (!validationRes) throw new UnauthorizedException();
+
+    const userPayload = await this.authService.getUserSignPayload(
+      validationRes.email,
+    );
+
     return {
-      accessToken: '',
-      refreshToken: '',
+      user: userPayload,
+      accessToken: this.authService.refreshAccessToken(userPayload),
+      refreshToken,
     };
   }
 }

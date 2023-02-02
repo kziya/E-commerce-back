@@ -22,15 +22,6 @@ export class AuthService {
     const { password, hash, ...restUser } = user;
     return { ...restUser };
   }
-  generateTokens(payload: Omit<user, 'password' | 'hash'>): TokensResponse {
-    return {
-      accessToken: this.jwtService.sign(payload),
-      refreshToken: this.jwtService.sign(
-        payload,
-        RefreshTokenSignConfig(this.configService),
-      ),
-    };
-  }
 
   async addUser(userCreateDto: IUserCreate): Promise<UserPayload> {
     const passwordHashed = await this.bcryptService.hash(
@@ -43,5 +34,27 @@ export class AuthService {
     });
     const { password, hash, ...restUser } = user;
     return restUser;
+  }
+  generateTokens(payload: Omit<user, 'password' | 'hash'>): TokensResponse {
+    return {
+      accessToken: this.jwtService.sign(payload),
+      refreshToken: this.jwtService.sign(
+        payload,
+        RefreshTokenSignConfig(this.configService),
+      ),
+    };
+  }
+  validateRefreshToken(refreshToken: string) {
+    try {
+      return this.jwtService.verify(
+        refreshToken,
+        RefreshTokenSignConfig(this.configService),
+      );
+    } catch (e) {
+      return null;
+    }
+  }
+  refreshAccessToken(payload: object) {
+    return this.jwtService.sign(payload);
   }
 }

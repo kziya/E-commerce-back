@@ -1,4 +1,8 @@
-import { JwtModuleOptions, JwtSignOptions } from '@nestjs/jwt';
+import {
+  JwtModuleOptions,
+  JwtSignOptions,
+  JwtVerifyOptions,
+} from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 
 export const AccessTokenModuleConfig = (
@@ -12,7 +16,7 @@ export const AccessTokenModuleConfig = (
 
 export const RefreshTokenSignConfig = (
   configService: ConfigService,
-): JwtSignOptions => ({
+): JwtVerifyOptions & JwtSignOptions => ({
   secret: configService.get('JWT_REFRESH_SECRET'),
   expiresIn: configService.get('JWT_REFRESH_EXPIRES'),
 });
