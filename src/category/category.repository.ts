@@ -3,6 +3,7 @@ import { category } from '@prisma/client';
 
 import { CategoryCreate, CategoryUpdate } from './category.types';
 import { PrismaService } from '../prisma/prisma.service';
+import { IAppRepository } from '../app.types';
 
 @Injectable()
 export class CategoryRepository
