@@ -1,6 +1,6 @@
 import { Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { APP_GUARD, APP_PIPE } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_PIPE } from '@nestjs/core';
 
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { BcryptModule } from './bcrypt/bcrypt.module';
 import { CategoryModule } from './category/category.module';
+import { PrismaExceptionFilter } from './exception-filters/prisma.exception-filter';
 
 @Module({
   imports: [
@@ -24,6 +25,10 @@ import { CategoryModule } from './category/category.module';
   controllers: [AppController],
   providers: [
     AppService,
+    {
+      provide: APP_FILTER,
+      useClass: PrismaExceptionFilter,
+    },
     {
       provide: APP_GUARD,
       useClass: JwtGuard,
