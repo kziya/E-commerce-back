@@ -10,3 +10,5 @@ interface IAppRepository<T, TCreate, TUpdate> {
   delete(where: Partial<T>): Promise<any>;
   deleteOne(where: Partial<T>): Promise<any>;
 }
+
+export type TupleRes<Success, Error> = [Success, null] | [null, Error];
