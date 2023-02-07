@@ -30,7 +30,10 @@ import { CategoryModule } from './category/category.module';
     },
     {
       provide: APP_PIPE,
-      useClass: ValidationPipe,
+      useValue: new ValidationPipe({
+        forbidNonWhitelisted: true,
+        whitelist: true,
+      }),
     },
   ],
 })
