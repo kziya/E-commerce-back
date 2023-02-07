@@ -3,7 +3,6 @@ import {
   Catch,
   HttpStatus,
   InternalServerErrorException,
-  NotFoundException,
 } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { BaseExceptionFilter } from '@nestjs/core';

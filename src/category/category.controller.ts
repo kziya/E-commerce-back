@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { category } from '@prisma/client';
 
 import { CategoryService } from './category.service';
@@ -49,5 +57,15 @@ export class CategoryController {
     @Body('where') where: CategoryFind,
   ) {
     return this.categoryService.updateOne(data, where);
+  }
+
+  @Delete('all')
+  deleteAll(@Body() where?: CategoryFind) {
+    return this.categoryService.deleteAll(where);
+  }
+
+  @Delete()
+  delete(@Body() where: CategoryFind) {
+    return this.categoryService.deleteOne(where);
   }
 }

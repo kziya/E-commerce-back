@@ -32,4 +32,12 @@ export class CategoryService {
   async updateOne(data: CategoryUpdate, where: CategoryFind) {
     return this.categoryRepository.updateOne(data, where);
   }
+
+  async deleteAll(where?: CategoryFind) {
+    return this.categoryRepository.delete(where);
+  }
+
+  async deleteOne(where: CategoryFind) {
+    return this.categoryRepository.delete(where);
+  }
 }
