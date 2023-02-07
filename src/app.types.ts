@@ -7,6 +7,6 @@ interface IAppRepository<T, TCreate, TUpdate> {
   update(updateProps: TUpdate, where?: Partial<T>): Promise<any>;
   updateOne(updateProps: TUpdate, where: Partial<T>): Promise<T>;
 
-  delete(where: Partial<T>): Promise<T>;
-  deleteOne(where: Partial<T>): Promise<T>;
+  delete(where: Partial<T>): Promise<any>;
+  deleteOne(where: Partial<T>): Promise<any>;
 }
