@@ -14,14 +14,14 @@ export class CategoryRepository
     return this.prismaService.category.create({ data: createEntity });
   }
 
-  async delete(where?: Partial<category>): Promise<any> {
+  async delete(where?: Partial<category>): Promise<{ count: number }> {
     return where
       ? this.prismaService.category.deleteMany({ where })
       : this.prismaService.category.deleteMany({});
   }
 
-  async deleteOne(where: Partial<category>): Promise<any> {
-    return this.prismaService.user.delete({ where });
+  async deleteOne(where: Partial<category>): Promise<category> {
+    return this.prismaService.category.delete({ where });
   }
 
   async findAll(where?: Partial<category>): Promise<category[]> {

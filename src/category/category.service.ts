@@ -38,6 +38,6 @@ export class CategoryService {
   }
 
   async deleteOne(where: CategoryFind) {
-    return this.categoryRepository.delete(where);
+    return this.categoryRepository.deleteOne(where);
   }
 }

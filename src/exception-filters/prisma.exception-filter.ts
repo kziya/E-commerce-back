@@ -10,9 +10,9 @@ import { BaseExceptionFilter } from '@nestjs/core';
 export class PrismaExceptionFilter extends BaseExceptionFilter {
   catch(exception: Prisma.PrismaClientKnownRequestError, host: ArgumentsHost) {
     const response = host.switchToHttp().getResponse();
-
+    console.log(exception);
     switch (exception.code) {
-      // not found while update error
+      // not found record
       case 'P2025':
         response.status(HttpStatus.NOT_FOUND).json({
           status: HttpStatus.NOT_FOUND,
