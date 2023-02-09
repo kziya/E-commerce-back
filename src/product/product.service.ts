@@ -1,8 +1,16 @@
-import { Body, Delete, Injectable } from '@nestjs/common';
+import {
+  BadGatewayException,
+  Body,
+  Delete,
+  HttpException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { product } from '@prisma/client';
 
 import { ProductCreate, ProductFind, ProductUpdate } from './product.types';
 import { ProductRepository } from './product.repository';
+import { TupleRes } from '../app.types';
 
 @Injectable()
 export class ProductService {
@@ -10,8 +18,10 @@ export class ProductService {
   async getAll(where?: ProductFind): Promise<product[]> {
     return this.productRepository.findAll(where);
   }
-  async getOne(where: ProductFind): Promise<product> {
-    return this.productRepository.findOne(where);
+  async getOne(where: ProductFind): Promise<TupleRes<product, HttpException>> {
+    const res = await this.productRepository.findOne(where);
+    if (!res) return [null, new NotFoundException()];
+    return [res, null];
   }
 
   async create(createEntity: ProductCreate): Promise<product> {

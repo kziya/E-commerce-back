@@ -24,11 +24,15 @@ export class ProductController {
 
   @Get(':id')
   async getOneById(@Param() params: FindOneParams) {
-    return this.productService.getOne({ id: Number(params.id) });
+    const [res, err] = await this.productService.getOne({ id: +params.id });
+    if (!res) throw err;
+    return res;
   }
   @Get()
   async getOne(@Body() where: ProductFind): Promise<product> {
-    return this.productService.getOne(where);
+    const [res, err] = await this.productService.getOne(where);
+    if (!res) throw err;
+    return res;
   }
 
   @Post()
