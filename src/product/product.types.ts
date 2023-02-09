@@ -21,7 +21,7 @@ export class ProductCreate {
 
 export class ProductUpdate {
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   name: string;
 
   @IsOptional()
@@ -39,4 +39,9 @@ export class ProductUpdate {
   @IsOptional()
   @IsNumber()
   categoryId: number;
+}
+export class ProductFind extends ProductUpdate {
+  @IsOptional()
+  @IsNumber()
+  id: number;
 }

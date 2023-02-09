@@ -11,35 +11,35 @@ export class ProductRepository
 {
   constructor(private readonly prismaService: PrismaService) {}
 
-  create(createEntity: ProductCreate): Promise<product> {
+  async create(createEntity: ProductCreate): Promise<product> {
     return this.prismaService.product.create({ data: createEntity });
   }
 
-  delete(where: Partial<product>): Promise<{ count: number }> {
+  async delete(where: Partial<product>): Promise<{ count: number }> {
     return where
       ? this.prismaService.product.deleteMany({ where })
       : this.prismaService.product.deleteMany();
   }
 
-  deleteOne(where: Partial<product>): Promise<product> {
+  async deleteOne(where: Partial<product>): Promise<product> {
     return this.prismaService.product.delete({ where });
   }
 
-  findAll(where?: Partial<product>): Promise<product[]> {
+  async findAll(where?: Partial<product>): Promise<product[]> {
     return where
       ? this.prismaService.product.findMany({ where })
       : this.prismaService.product.findMany();
   }
 
-  findOne(where: Partial<product>): Promise<product> {
+  async findOne(where: Partial<product>): Promise<product> {
     return this.prismaService.product.findFirst({ where });
   }
 
-  findOneById(id: number): Promise<product> {
+  async findOneById(id: number): Promise<product> {
     return this.findOne({ id });
   }
 
-  update(
+  async update(
     updateProps: ProductUpdate,
     where?: Partial<product>,
   ): Promise<{ count: number }> {
@@ -48,7 +48,7 @@ export class ProductRepository
       : this.prismaService.product.updateMany({ data: updateProps });
   }
 
-  updateOne(
+  async updateOne(
     updateProps: ProductUpdate,
     where: Partial<product>,
   ): Promise<product> {
