@@ -33,7 +33,7 @@ export class ProductController {
   }
 
   @Patch('all')
-  update(
+  async update(
     @Body('data') updateProps: ProductUpdate,
     @Body('where') where?: ProductFind,
   ): Promise<{ count: number }> {
@@ -41,7 +41,7 @@ export class ProductController {
   }
 
   @Patch()
-  updateOne(
+  async updateOne(
     @Body('data') updateProps: ProductUpdate,
     @Body('where') where: ProductFind,
   ): Promise<product> {
