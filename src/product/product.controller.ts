@@ -24,7 +24,7 @@ export class ProductController {
 
   @Get(':id')
   async getOneById(@Param() params: FindOneParams) {
-    return this.productService.getOne({ id: params.id });
+    return this.productService.getOne({ id: Number(params.id) });
   }
   @Get()
   async getOne(@Body() where: ProductFind): Promise<product> {
