@@ -12,6 +12,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { BcryptModule } from './bcrypt/bcrypt.module';
 import { CategoryModule } from './category/category.module';
 import { PrismaExceptionFilter } from './exception-filters/prisma.exception-filter';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { PrismaExceptionFilter } from './exception-filters/prisma.exception-filt
     PrismaModule,
     BcryptModule,
     CategoryModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [

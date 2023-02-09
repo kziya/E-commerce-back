@@ -31,7 +31,7 @@ export class CategoryController {
   @Get(':id')
   async OneById(@Param() params: FindOneParams): Promise<category> {
     const [category, httpError] = await this.categoryService.findOne({
-      id: Number(params.id),
+      id: +params.id,
     });
 
     if (httpError) throw httpError;
