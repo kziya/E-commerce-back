@@ -1,8 +1,17 @@
-import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { product } from '@prisma/client';
 
 import { ProductCreate, ProductFind, ProductUpdate } from './product.types';
 import { ProductService } from './product.service';
+import { FindOneParams } from '../app.types';
 
 @Controller('product')
 export class ProductController {
@@ -13,6 +22,10 @@ export class ProductController {
     return this.productService.getAll(where);
   }
 
+  @Get(':id')
+  async getOneById(@Param() params: FindOneParams) {
+    return this.productService.getOne({ id: params.id });
+  }
   @Get()
   async getOne(@Body() where: ProductFind): Promise<product> {
     return this.productService.getOne(where);

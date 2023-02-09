@@ -22,7 +22,7 @@ export class ProductCreate {
 export class ProductUpdate {
   @IsString()
   @IsOptional()
-  name: string;
+  name?: string;
 
   @IsOptional()
   @IsString()
@@ -30,18 +30,18 @@ export class ProductUpdate {
 
   @IsOptional()
   @IsNumber()
-  price: number;
+  price?: number;
 
   @IsOptional()
   @IsNumber()
-  quantity: number;
+  quantity?: number;
 
   @IsOptional()
   @IsNumber()
-  categoryId: number;
+  categoryId?: number;
 }
 export class ProductFind extends ProductUpdate {
   @IsOptional()
   @IsNumber()
-  id: number;
+  id?: number;
 }
