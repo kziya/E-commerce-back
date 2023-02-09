@@ -7,10 +7,10 @@ export interface IAppRepository<T, TCreate, TUpdate> {
   findOneById(id: number): Promise<T>;
 
   create(createEntity: TCreate): Promise<T>;
-  update(updateProps: TUpdate, where?: Partial<T>): Promise<any>;
+  update(updateProps: TUpdate, where?: Partial<T>): Promise<{ count: number }>;
   updateOne(updateProps: TUpdate, where: Partial<T>): Promise<T>;
 
-  delete(where: Partial<T>): Promise<any>;
+  delete(where: Partial<T>): Promise<{ count: number }>;
   deleteOne(where: Partial<T>): Promise<T>;
 }
 // Types
