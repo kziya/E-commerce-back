@@ -9,23 +9,9 @@ import {
 import ErrorMessagesEnum from '../enums/error-messages.enum';
 import { UserNotExists } from '../decorators/validation/user-not-exists.decorator';
 import { Match } from '../decorators/validation/match.decorator';
+import { UserCreateDto } from '../../user/user.types';
 
-export class SignUpDto {
-  @IsOptional()
-  @IsString()
-  firstName?: string;
-
-  @IsOptional()
-  @IsString()
-  lastName?: string;
-
-  @IsEmail({}, { message: ErrorMessagesEnum.emailNotValid })
-  @UserNotExists()
-  email: string;
-
-  @Length(8, 20, { message: ErrorMessagesEnum.passwordLength })
-  password: string;
-
+export class SignUpDto extends UserCreateDto {
   @IsNotEmpty({ message: ErrorMessagesEnum.confirmPassCanNotBeEmpty })
   @Match('password', { message: ErrorMessagesEnum.confirmPassEqual })
   confirmPassword: string;

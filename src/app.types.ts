@@ -1,5 +1,5 @@
 // Interfaces
-import { IsNumberString } from 'class-validator';
+import { IsNumberString, IsUUID } from 'class-validator';
 
 export interface IAppRepository<T, TCreate, TUpdate> {
   findAll(where: Partial<T>): Promise<T[]>;
@@ -16,7 +16,12 @@ export interface IAppRepository<T, TCreate, TUpdate> {
 // Types
 export type TupleRes<Success, Error> = [Success, null] | [null, Error];
 // Classes
-export class FindOneParams {
+export class IdParams {
   @IsNumberString()
   id: number;
+}
+
+export class UUIDParams {
+  @IsUUID()
+  uuid: string;
 }

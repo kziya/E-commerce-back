@@ -3,8 +3,8 @@ import {
   Controller,
   Get,
   Headers,
+  Param,
   Post,
-  Req,
   UnauthorizedException,
 } from '@nestjs/common';
 
@@ -14,6 +14,9 @@ import { SignUpDto } from './dtos/sign-up.dto';
 import { Public } from './decorators/public.decorator';
 import { TokensResponse, UserPayloadResponse } from './auth.types';
 import { MailService } from '../mail/mail.service';
+import { UUIDParams } from '../app.types';
+import { UserService } from '../user/user.service';
+import { UserCreateDto } from '../user/user.types';
 
 @Controller('auth')
 export class AuthController {
@@ -45,6 +48,7 @@ export class AuthController {
     const { confirmPassword, ...restDto } = signUpDto;
     const userPayload = await this.authService.addUser(restDto);
     const tokens = this.authService.generateTokens(userPayload);
+
     this.mailService.sendGreetingMail(userPayload);
     return {
       user: userPayload,
@@ -71,4 +75,7 @@ export class AuthController {
       refreshToken,
     };
   }
+
+  @Get('activate/:uuid')
+  async activateAccount(@Param() params: UUIDParams) {}
 }

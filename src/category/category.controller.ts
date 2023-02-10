@@ -10,7 +10,7 @@ import {
 import { category } from '@prisma/client';
 
 import { CategoryService } from './category.service';
-import { FindOneParams } from '../app.types';
+import { IdParams } from '../app.types';
 import { CategoryCreate, CategoryFind, CategoryUpdate } from './category.types';
 
 @Controller('category')
@@ -29,7 +29,7 @@ export class CategoryController {
   }
 
   @Get(':id')
-  async OneById(@Param() params: FindOneParams): Promise<category> {
+  async OneById(@Param() params: IdParams): Promise<category> {
     const [category, httpError] = await this.categoryService.findOne({
       id: +params.id,
     });
