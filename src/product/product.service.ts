@@ -1,11 +1,4 @@
-import {
-  BadGatewayException,
-  Body,
-  Delete,
-  HttpException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { product } from '@prisma/client';
 
 import { ProductCreate, ProductFind, ProductUpdate } from './product.types';

@@ -23,7 +23,7 @@ export class AuthService {
     const { password, hash, ...restUser } = user;
     return { ...restUser };
   }
-  async activateUser() {}
+
   async addUser(userCreateDto: UserCreateDto): Promise<UserPayload> {
     const passwordHashed = await this.bcryptService.hash(
       userCreateDto.password,

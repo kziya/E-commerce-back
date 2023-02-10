@@ -75,7 +75,4 @@ export class AuthController {
       refreshToken,
     };
   }
-
-  @Get('activate/:uuid')
-  async activateAccount(@Param() params: UUIDParams) {}
 }
