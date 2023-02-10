@@ -6,24 +6,18 @@ import {
   Param,
   Patch,
   Post,
-  Req,
 } from '@nestjs/common';
 import { category } from '@prisma/client';
 
 import { CategoryService } from './category.service';
 import { FindOneParams } from '../app.types';
 import { CategoryCreate, CategoryFind, CategoryUpdate } from './category.types';
-import { GetUser } from '../auth/decorators/get-user.decorator';
-import { SignedUserPayload } from '../auth/auth.types';
 
 @Controller('category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
   @Get('all')
-  async All(
-    @GetUser() user: SignedUserPayload,
-    @Body() where?: CategoryFind,
-  ): Promise<category[]> {
+  async All(@Body() where?: CategoryFind): Promise<category[]> {
     return this.categoryService.findAll(where);
   }
 
