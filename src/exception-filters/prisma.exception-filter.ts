@@ -10,7 +10,6 @@ import { BaseExceptionFilter } from '@nestjs/core';
 export class PrismaExceptionFilter extends BaseExceptionFilter {
   catch(exception: Prisma.PrismaClientKnownRequestError, host: ArgumentsHost) {
     const response = host.switchToHttp().getResponse();
-    console.log(exception);
     switch (exception.code) {
       // not found record
       case 'P2025':
@@ -20,7 +19,11 @@ export class PrismaExceptionFilter extends BaseExceptionFilter {
         });
         break;
       default:
-        throw new InternalServerErrorException();
+        response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          message: 'Internal Server Error !',
+        });
+        break;
     }
   }
 }
