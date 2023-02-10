@@ -13,10 +13,14 @@ import { LoginDto } from './dtos/login.dto';
 import { SignUpDto } from './dtos/sign-up.dto';
 import { Public } from './decorators/public.decorator';
 import { TokensResponse, UserPayloadResponse } from './auth.types';
+import { MailService } from '../mail/mail.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly mailService: MailService,
+  ) {}
 
   @Public()
   @Post('login')
@@ -27,7 +31,6 @@ export class AuthController {
       loginDto.email,
     );
     const tokens = this.authService.generateTokens(userPayload);
-
     return {
       user: userPayload,
       ...tokens,
@@ -42,6 +45,7 @@ export class AuthController {
     const { confirmPassword, ...restDto } = signUpDto;
     const userPayload = await this.authService.addUser(restDto);
     const tokens = this.authService.generateTokens(userPayload);
+    this.mailService.sendGreetingMail(userPayload);
     return {
       user: userPayload,
       ...tokens,

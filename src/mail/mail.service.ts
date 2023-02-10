@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { user } from '@prisma/client';
+import { UserPayload } from '../auth/auth.types';
 
 @Injectable()
 export class MailService {
@@ -17,7 +18,7 @@ export class MailService {
     });
   }
 
-  async sendGreetingMail(User: user) {
+  async sendGreetingMail(User: UserPayload) {
     return this.mailerService.sendMail({
       to: User.email,
       subject: 'Welcome !',

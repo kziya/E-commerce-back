@@ -16,5 +16,6 @@ import mailerConfig from '../configs/mailer.config';
   ],
   providers: [MailService],
   controllers: [MailController],
+  exports: [MailService],
 })
 export class MailModule {}

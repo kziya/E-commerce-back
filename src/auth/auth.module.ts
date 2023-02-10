@@ -12,6 +12,7 @@ import { UserModule } from '../user/user.module';
 import { UserNotExistsValidator } from './validators/user-not-exists.validator';
 import { UserExistsValidator } from './validators/user-exists.validator';
 import { PasswordCheckValidator } from './validators/password-check.validator';
+import { MailModule } from '../mail/mail.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { PasswordCheckValidator } from './validators/password-check.validator';
     }),
     BcryptModule,
     UserModule,
+    MailModule,
   ],
   controllers: [AuthController],
   providers: [
