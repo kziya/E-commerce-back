@@ -1,16 +1,10 @@
-import {
-  ArgumentsHost,
-  Catch,
-  HttpStatus,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { ArgumentsHost, Catch, HttpStatus } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { BaseExceptionFilter } from '@nestjs/core';
 @Catch(Prisma.PrismaClientKnownRequestError)
 export class PrismaExceptionFilter extends BaseExceptionFilter {
   catch(exception: Prisma.PrismaClientKnownRequestError, host: ArgumentsHost) {
     const response = host.switchToHttp().getResponse();
-    console.log(exception);
     switch (exception.code) {
       // not found record
       case 'P2025':
@@ -20,7 +14,11 @@ export class PrismaExceptionFilter extends BaseExceptionFilter {
         });
         break;
       default:
-        throw new InternalServerErrorException();
+        response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          message: 'Internal Server Error !',
+        });
+        break;
     }
   }
 }
