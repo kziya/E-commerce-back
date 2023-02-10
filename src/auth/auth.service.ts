@@ -2,9 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { user } from '@prisma/client';
+
 import { RefreshTokenSignConfig } from '../configs/jwt.config';
 import { UserRepository } from '../user/user.repository';
-import { IUserCreate } from '../user/user.types';
+import { UserCreateDto } from '../user/user.types';
 import { BcryptService } from '../bcrypt/bcrypt.service';
 import { TokensResponse, UserPayload } from './auth.types';
 
@@ -23,7 +24,7 @@ export class AuthService {
     return { ...restUser };
   }
 
-  async addUser(userCreateDto: IUserCreate): Promise<UserPayload> {
+  async addUser(userCreateDto: UserCreateDto): Promise<UserPayload> {
     const passwordHashed = await this.bcryptService.hash(
       userCreateDto.password,
     );
