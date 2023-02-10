@@ -16,4 +16,15 @@ export class MailService {
       },
     });
   }
+
+  async sendGreetingMail(User: user) {
+    return this.mailerService.sendMail({
+      to: User.email,
+      subject: 'Welcome !',
+      template: 'greeting',
+      context: {
+        user: User,
+      },
+    });
+  }
 }
