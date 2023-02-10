@@ -13,6 +13,7 @@ import { BcryptModule } from './bcrypt/bcrypt.module';
 import { CategoryModule } from './category/category.module';
 import { PrismaExceptionFilter } from './exception-filters/prisma.exception-filter';
 import { ProductModule } from './product/product.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ProductModule } from './product/product.module';
     BcryptModule,
     CategoryModule,
     ProductModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [
