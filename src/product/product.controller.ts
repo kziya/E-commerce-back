@@ -11,7 +11,7 @@ import { product } from '@prisma/client';
 
 import { ProductCreate, ProductFind, ProductUpdate } from './product.types';
 import { ProductService } from './product.service';
-import { FindOneParams } from '../app.types';
+import { IdParams } from '../app.types';
 
 @Controller('product')
 export class ProductController {
@@ -23,7 +23,7 @@ export class ProductController {
   }
 
   @Get(':id')
-  async getOneById(@Param() params: FindOneParams) {
+  async getOneById(@Param() params: IdParams) {
     const [res, err] = await this.productService.getOne({ id: +params.id });
     if (!res) throw err;
     return res;
