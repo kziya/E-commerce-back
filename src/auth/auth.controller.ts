@@ -3,8 +3,11 @@ import {
   Controller,
   Get,
   Headers,
+  InternalServerErrorException,
+  NotFoundException,
   Param,
   Post,
+  Redirect,
   UnauthorizedException,
 } from '@nestjs/common';
 
@@ -15,8 +18,6 @@ import { Public } from './decorators/public.decorator';
 import { TokensResponse, UserPayloadResponse } from './auth.types';
 import { MailService } from '../mail/mail.service';
 import { UUIDParams } from '../app.types';
-import { UserService } from '../user/user.service';
-import { UserCreateDto } from '../user/user.types';
 
 @Controller('auth')
 export class AuthController {
@@ -74,5 +75,16 @@ export class AuthController {
       accessToken: this.authService.refreshAccessToken(userPayload),
       refreshToken,
     };
+  }
+
+  @Public()
+  @Redirect('https://google.com')
+  @Get('verify/:uuid')
+  async verifyAccount(@Param() params: UUIDParams) {
+    const user = await this.authService.findActivatingAccount(params.uuid);
+    if (!user) throw new NotFoundException();
+
+    const activate = await this.authService.activateAccount(user.id);
+    if (!activate) throw new InternalServerErrorException();
   }
 }

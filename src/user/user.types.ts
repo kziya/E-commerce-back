@@ -42,9 +42,9 @@ export class UserUpdateDto {
 
   @IsOptional()
   @Length(8, 20, { message: ErrorMessagesEnum.passwordLength })
-  password: string;
+  password?: string;
 
   @IsOptional()
   @IsEnum(user_status)
-  status: user_status;
+  status?: user_status;
 }
