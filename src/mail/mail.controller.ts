@@ -1,8 +1,8 @@
 import { Controller, Post } from '@nestjs/common';
+
 import { MailService } from './mail.service';
 import { GetUser } from '../auth/decorators/get-user.decorator';
 import { SignedUserPayload } from '../auth/auth.types';
-import { user } from '@prisma/client';
 import { UserService } from '../user/user.service';
 
 @Controller('mail')
