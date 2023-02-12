@@ -15,7 +15,7 @@ export class MailController {
   async sendVerifyMail(
     @GetUser() userPayload: SignedUserPayload,
   ): Promise<{ message: string }> {
-    const user = await this.userService.findUser({ id: userPayload.id });
+    const user = await this.userService.getUser({ id: userPayload.id });
     const sendMail = await this.mailService.sendVerificationUrl(user);
     console.log(sendMail);
     return { message: 'ok' };

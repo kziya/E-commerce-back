@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -18,6 +19,7 @@ import { Public } from './decorators/public.decorator';
 import { TokensResponse, UserPayloadResponse } from './auth.types';
 import { MailService } from '../mail/mail.service';
 import { UUIDParams } from '../app.types';
+import { user_status } from '@prisma/client';
 
 @Controller('auth')
 export class AuthController {
@@ -83,6 +85,7 @@ export class AuthController {
   async verifyAccount(@Param() params: UUIDParams) {
     const user = await this.authService.findActivatingAccount(params.uuid);
     if (!user) throw new NotFoundException();
+    if (user.status === user_status.ACTIVE) return '';
 
     const activate = await this.authService.activateAccount(user.id);
     if (!activate) throw new InternalServerErrorException();
