@@ -33,14 +33,11 @@ export class AuthService {
     return this.userRepository.findOne({ hash: uuid });
   }
   async addUser(userCreateDto: UserCreateDto): Promise<UserPayload> {
-    const passwordHashed = await this.bcryptService.hash(
-      userCreateDto.password,
-    );
-
     const user = await this.userRepository.create({
       ...userCreateDto,
-      password: passwordHashed,
+      password: await this.bcryptService.hash(userCreateDto.password),
     });
+
     const { password, hash, ...restUser } = user;
     return restUser;
   }
