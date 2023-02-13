@@ -15,6 +15,7 @@ export class MailService {
       template: 'verify-account',
       context: {
         user: User,
+        baseURL: 'http://localhost:3000',
       },
     });
   }
